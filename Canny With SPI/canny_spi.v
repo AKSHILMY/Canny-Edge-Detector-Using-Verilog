@@ -23,7 +23,7 @@ module canny (
     input wire cs
 );
 
-reg [15:0] im11t, im12t, im13t, im21t, im22t, im23t, im31t, im32t, im33t;
+reg [15:0] im11t, im12t,im13t, im21t, im22t, im23t, im31t, im32t, im33t; // ... (other temporary registers)
 reg data_occur;
 
 wire temp3x_sign;
@@ -32,8 +32,8 @@ wire temp3y_sign;
 wire [15:0] reg_add;
 
 // SPI registers
-reg [7:0] spi_tx_data;
-reg [7:0] spi_rx_data;
+reg [15:0] spi_tx_data;
+reg [15:0] spi_rx_data;
 reg spi_ready;
 reg spi_active;
 
@@ -42,7 +42,7 @@ always @(posedge clk) begin
     if (~reset) begin
         spi_ready <= 0;
         spi_active <= 0;
-        spi_rx_data <= 8'b0;
+        spi_rx_data <= 16'b0;
     end else begin
         if (spi_ready) begin
             spi_rx_data <= miso;
@@ -53,7 +53,6 @@ always @(posedge clk) begin
     end
 end
 
-// Canny edge detection logic
 always @(posedge clk) begin
    if(~reset)
  
